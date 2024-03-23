@@ -1,14 +1,14 @@
-let handler = async(m, { isOwner, isAdmin, conn, text, participants, args, command }) => {
+let handler = async (m, { isOwner, isAdmin, conn, text, participants, args, command }) => {
     if (isAdmin || isOwner) {
         let pesan = args.join` `;
         let oi = `*♚~الرساله:* ${pesan}`;
         let teks = `*  * \n\n ${oi}\n\n*🗡┇الجروب :⇣*\n`;
         for (let mem of participants) {
-            if (!mem.isAdmin) { // تحقق مما إذا كان العضو ليس مشرفًا
+            if (!mem.isAdmin) { // التحقق مما إذا كان العضو ليس مشرفًا
                 teks += `*تفاعل ↫* @${mem.id.split('@')[0]}\n`;
             }
         }
-        teks += `*shanks❤️💍*\n\n*miral❤️💍*`;
+        teks += `*Nezuko-BOT*\n\n*JOHAN&kaneki*`;
         conn.sendMessage(m.chat, { text: teks, mentions: participants.filter(mem => !mem.isAdmin).map(a => a.id) });
     } else {
         global.dfail('admin', m, conn);
@@ -16,9 +16,9 @@ let handler = async(m, { isOwner, isAdmin, conn, text, participants, args, comma
     }
 }
 
-handler.help = ['tagall <mesaje>','invocar <mesaje>'];
+handler.help = ['tagall <mesaje>', 'invocar <mesaje>'];
 handler.tags = ['group'];
-handler.command = /^(2منشن|invocar|invocacion|todos|invocación)$/i;
+handler.command = /^(منشن2|invocar|invocacion|todos|invocación)$/i;
 handler.admin = true;
 handler.group = true;
 
