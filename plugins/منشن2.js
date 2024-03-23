@@ -1,25 +1,17 @@
-let handler = async (m, { isOwner, isAdmin, conn, text, participants, args, command }) => {
-    if (isAdmin || isOwner) {
-        let pesan = args.join` `;
-        let oi = `*♚~الرساله:* ${pesan}`;
-        let teks = `*  * \n\n ${oi}\n\n*🗡┇الجروب :⇣*\n`;
-        for (let mem of participants) {
-            if (!mem.isAdmin) { // التحقق مما إذا كان العضو ليس مشرفًا
-                teks += `*تفاعل ↫* @${mem.id.split('@')[0]}\n`;
-            }
-        }
-        teks += `*Nezuko-BOT*\n\n*JOHAN&kaneki*`;
-        conn.sendMessage(m.chat, { text: teks, mentions: participants.filter(mem => !mem.isAdmin).map(a => a.id) });
-    } else {
-        global.dfail('admin', m, conn);
-        throw false;
-    }
+let handler = async (m, { conn, text, participants, groupMetadata }) => {
+  let users = participants.filter(p => !p.isAdmin).map(u => u.id)
+  
+  m.reply(`❏ مجموعة : *${groupMetadata.subject}*\n❏ أعضاء : *${participants.length}*${text ? `\n❐ رسالة : ${text}\n` : ''}\n*✦━━━━━━[ 𝑍𝑂𝑅𝑂 ]━━━━━━✦*
+*⤹⚜⊰⚡⊱⚜⤸* يلا ي جدعان تعالو اي الملل دا
+*✦━━─━━━⌠🐉⌡━━━─━━✦*
+*⤹⚜ المنشن ⊰⚡⊱ الجماعي ⚜⤸*\n` + users.map(v => '│◦❈↲ تفاعل @' + v.replace(/@.+/, '')).join`\n` + '\n*✦━━━━━━[ 𝑍𝑂𝑅𝑂 ]━━━━━━✦*', null, {
+      mentions: users
+  })
 }
 
-handler.help = ['tagall <mesaje>', 'invocar <mesaje>'];
-handler.tags = ['group'];
-handler.command = /^(منشن2|invocar|invocacion|todos|invocación)$/i;
-handler.admin = true;
-handler.group = true;
+handler.help = ['tagall']
+handler.tags = ['group']
+handler.command = ['منشن']
+handler.group = true
 
-export default handler;
+export default handler
